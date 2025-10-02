@@ -21,13 +21,15 @@ O objetivo é gerenciar produtos, clientes e operações de venda de forma organ
 ## 🏗️ Estrutura do Projeto
 ```
 ProjetoSupermercado/
- ├── src/
- │    ├── model/        # Classes de dados e regras de negócio
- │    ├── view/         # Telas (Swing/JFrame)
- │    └── controller/   # Lógica de controle e integração
- ├── .gitignore
- ├── README.md
- └── ...
+├── src/
+│ ├── main/ # Package principal do projeto
+│ │ └── Main.java # Classe principal que executa o programa
+│ ├── model/ # Classes de domínio e regras de negócio
+│ ├── view/ # JPanel's e componentes gráficos
+│ └── controller/ # Lógica de controle e integração
+├── .gitignore
+├── README.md
+└── ...
 ```
 
 ---
@@ -52,7 +54,7 @@ ProjetoSupermercado/
 
 ## 📚 Padrão de Arquitetura (MVC)
 - **Model** → contém os objetos principais do sistema, como `Produto`, `Cliente` e `Carrinho de Compras`.  
-- **View** → responsável pela interface gráfica com o usuário.  
+- **View** → responsável pela interface gráfica, com múltiplos `JPanels` organizados em um único `JFrame`.  
 - **Controller** → controla o fluxo entre as Views e os Models, aplicando as regras de negócio.  
 
 ---
