@@ -51,7 +51,7 @@ ProjetoSupermercado/
 ---
 
 ## 📚 Padrão de Arquitetura (MVC)
-- **Model** → contém os objetos principais do sistema, como `Produto`, `Cliente` e `Venda`.  
+- **Model** → contém os objetos principais do sistema, como `Produto`, `Cliente` e `Carrinho de Compras`.  
 - **View** → responsável pela interface gráfica com o usuário.  
 - **Controller** → controla o fluxo entre as Views e os Models, aplicando as regras de negócio.  
 
