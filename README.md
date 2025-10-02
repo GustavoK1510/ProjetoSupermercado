@@ -19,7 +19,7 @@ O objetivo é gerenciar produtos, clientes e operações de venda de forma organ
 ---
 
 ## 🏗️ Estrutura do Projeto
-\`\`\`
+```
 ProjetoSupermercado/
  ├── src/
  │    ├── model/        # Classes de dados e regras de negócio
@@ -28,7 +28,7 @@ ProjetoSupermercado/
  ├── .gitignore
  ├── README.md
  └── ...
-\`\`\`
+```
 
 ---
 
@@ -42,9 +42,9 @@ ProjetoSupermercado/
 
 ## ▶️ Como Executar
 1. Clone este repositório:
-   \`\`\`bash
+   ```bash
    git clone https://github.com/GustavoK1510/ProjetoSupermercado.git
-   \`\`\`
+   ```
 2. Abra o projeto no **Eclipse** (ou outra IDE Java).
 3. Compile e execute a classe principal (geralmente \`Main.java\`).
 
