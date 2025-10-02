@@ -46,12 +46,12 @@ ProjetoSupermercado/
    git clone https://github.com/GustavoK1510/ProjetoSupermercado.git
    ```
 2. Abra o projeto no **Eclipse** (ou outra IDE Java).
-3. Compile e execute a classe principal (geralmente \`Main.java\`).
+3. Compile e execute a classe principal (geralmente `Main.java`).
 
 ---
 
 ## 📚 Padrão de Arquitetura (MVC)
-- **Model** → contém os objetos principais do sistema, como \`Produto\`, \`Cliente\` e \`Venda\`.  
+- **Model** → contém os objetos principais do sistema, como `Produto`, `Cliente` e `Venda`.  
 - **View** → responsável pela interface gráfica com o usuário.  
 - **Controller** → controla o fluxo entre as Views e os Models, aplicando as regras de negócio.  
 
