@@ -1,0 +1,14 @@
+# Compilados Java
+*.class
+
+# Diretório de saída
+/bin/
+
+# Configurações do Eclipse
+.classpath
+.project
+.settings/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
