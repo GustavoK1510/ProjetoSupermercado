@@ -9,6 +9,11 @@ public class ProdutoController {
 	private final ProdutoDAO model;
 	private final Navegador navegador;
 	
+	private boolean modoNovo;
+	private boolean modoEditar;
+	
+	private Produto produtoSelecionado;
+	
 	public ProdutoController(TelaCadastroProduto view, ProdutoDAO model, Navegador navegador) {
 		this.view = view;
 		this.model = model;
@@ -23,19 +28,25 @@ public class ProdutoController {
 			if(nome.isEmpty()||desc.isEmpty()) {
 				this.view.exibirMensagem("Erro!", "Complete todos os campos!", 1);
 			}else {
-				if(this.model.buscarPorNome(nome)) {
-					Produto p = new Produto(valor, qtd, nome, desc);
-					this.model.atualizar(p);
+				if(modoEditar) {
+					this.produtoSelecionado.setNome(nome);
+					this.produtoSelecionado.setValor(valor);
+					this.produtoSelecionado.setQtd(qtd);
+					this.produtoSelecionado.setDesc(desc);
 					
-					this.view.atualizarTabela(this.model.listarTodos());
+					this.model.atualizarDB(produtoSelecionado);
+					
+					this.produtoSelecionado = null;
+					
+					this.view.atualizarTabela(this.model.listarTodosDB());
 					this.view.setEdit(false);
 					this.view.setSalvar(false);
 					this.view.limparFormulario();
-				}else {
+				}else if(modoNovo){
 					Produto p = new Produto(valor, qtd, nome, desc);
-					this.model.addProduto(p);
+					this.model.addProdutoDB(p);
 					
-					this.view.atualizarTabela(this.model.listarTodos());
+					this.view.atualizarTabela(this.model.listarTodosDB());
 					this.view.setEdit(false);
 					this.view.setSalvar(false);
 					this.view.limparFormulario();
@@ -44,12 +55,17 @@ public class ProdutoController {
 		});
 		
 		this.view.editar(e->{
+			
+			this.modoEditar = true;
+			this.modoNovo = false;
 
 			int linha = view.getTable().getSelectedRow();
 			if(linha==-1) {
 				this.view.exibirMensagem("Erro!", "Nenhum produto selecionado!", 1);
 				return;
 			}else {
+				this.produtoSelecionado = this.model.listarTodosDB().get(linha);
+				
 				String nome = (String) view.getTable().getValueAt(linha, 0);
 				int qtd = (int) view.getTable().getValueAt(linha, 1);
 				double valor = (double) view.getTable().getValueAt(linha, 2);
@@ -67,16 +83,33 @@ public class ProdutoController {
 		});
 		
 		this.view.nProduto(e->{
+			this.modoEditar = false;
+			this.modoNovo = true;
+			
 			this.view.limparFormulario();
 			this.view.setEdit(true);
 			this.view.setSalvar(true);
 		});
 		
-		this.view.voltar(e->{
-			navegador.navegarPara("Login");
+		this.view.excluir(e->{
+			int linha = view.getTable().getSelectedRow();
+			if(linha==-1) {
+				this.view.exibirMensagem("Erro!", "Nenhum produto selecionado!", 1);
+				return;
+			}else {
+				this.produtoSelecionado = this.model.listarTodosDB().get(linha);
+				
+				this.model.removerDB(this.produtoSelecionado.getId());
+				
+				this.view.atualizarTabela(this.model.listarTodosDB());
+			}
 		});
 		
-		this.view.atualizarTabela(this.model.listarTodos());
+		this.view.voltar(e->{
+			this.navegador.navegarPara("Login");
+		});
+		
+		this.view.atualizarTabela(this.model.listarTodosDB());
 	}
 
 }

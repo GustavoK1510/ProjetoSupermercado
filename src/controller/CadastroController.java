@@ -14,25 +14,34 @@ public class CadastroController {
 		this.model = model;
 		this.navegador = navegador;
 		
-		this.view.cadastrar(e ->{
-			String nome = view.getNome();
-			String cpf = view.getCpf();
-			boolean sim = view.getSim();
-			boolean nao = view.getNao();
-			
-			if(nome.equals("")||cpf.equals("")||(!sim&&!nao)) {
-				view.exibirMensagem("Erro", "Complete todos os campos!", 0);
-			}
-			else{
-				this.view.exibirMensagem("Sucesso", "Cadastrado com sucesso!", 1);
-				this.view.limparFormulario();
-				
-				Usuario u = new Usuario(nome, cpf, sim);
-				this.model.addUsuario(u);
-				
-				this.navegador.navegarPara("Login");
-			}
+		this.view.cadastrar(e -> {
+		    String nome = view.getNome();
+		    String cpf = view.getCpf();
+		    boolean isAdmin = view.getSim();
+		    
+		    if(nome.isEmpty()||cpf.isEmpty()||(!this.view.getSim()&&!this.view.getNao())) {
+		        this.view.exibirMensagem("Erro!", "Complete todos os campos!", 0);
+		        return;
+		    }
+
+		    if(cpf.length() != 11 || !cpf.matches("\\d+")) {
+		        this.view.exibirMensagem("Erro!", "CPF inválido! Deve conter 11 números.", 0);
+		        return;
+		    }
+
+		    if(this.model.buscarPorCpfDB(cpf) != null) {
+		        this.view.exibirMensagem("Erro!", "CPF já cadastrado!", 0);
+		        return;
+		    }
+
+		    Usuario u = new Usuario(nome, cpf, isAdmin);
+		    this.model.addUsuarioDB(u);
+
+		    this.view.exibirMensagem("Sucesso!", "Cadastrado com sucesso!", 1);
+		    this.view.limparFormulario();
+		    this.navegador.navegarPara("Login");
 		});
+
 		
 		
 	}

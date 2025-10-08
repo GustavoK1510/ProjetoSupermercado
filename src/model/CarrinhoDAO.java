@@ -31,6 +31,23 @@ public class CarrinhoDAO {
 		return false;
 	}
 	
+	public int qtdPorNome(String nome) {
+		for (Produto produto : this.listaCarrinho) {
+			if (buscarPorNome(nome)) {
+				return produto.getQtd();
+			}
+		}
+		return -1;
+	}
+	
+	public void removerItem(String nome) {
+		this.listaCarrinho.removeIf(produto -> produto.getNome().equalsIgnoreCase(nome));
+	}
+	
+	public void removerTodos() {
+		this.listaCarrinho.removeAll(this.listaCarrinho);
+	}
+	
 	public boolean atualizar(Produto produtoAtualizado) {
 		for (int i = 0; i < this.listaCarrinho.size(); i++) {
 			Produto produtoExistente = this.listaCarrinho.get(i);

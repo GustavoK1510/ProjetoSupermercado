@@ -2,9 +2,18 @@ package model;
 
 public class Produto {
 	private double valor;
-	private int qtd;
+	private int qtd, id;
 	private String nome, desc;
 	
+	
+	public Produto(int id, double valor, int qtd, String nome, String desc) {
+		this.id = id;
+		this.valor = valor;
+		this.qtd = qtd;
+		this.nome = nome;
+		this.desc = desc;
+		
+	}
 	
 	public Produto(double valor, int qtd, String nome, String desc) {
 		this.valor = valor;
@@ -22,6 +31,14 @@ public class Produto {
 		System.out.println("###################################");
 	}
 	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public double getValor() {
 		return valor;

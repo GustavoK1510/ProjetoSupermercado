@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
 import controller.CadastroController;
+import controller.CarrinhoController;
 import controller.CompraController;
 import controller.CupomFiscalController;
 import controller.LoginController;
@@ -36,22 +37,19 @@ public class Main {
 		CarrinhoDAO carrinhoDAO = new CarrinhoDAO();
 		
 		TelaCadastro telaCadastro = new TelaCadastro();
-		CadastroController cadastroController = new CadastroController(telaCadastro, usuarioDAO, navegador);
-		
 		TelaCadastroProduto telaCadastroProduto = new TelaCadastroProduto();
-		ProdutoController produtoController = new ProdutoController(telaCadastroProduto, produtoDAO, navegador);
-		
-		TelaDeCompras telaDeCompras = new TelaDeCompras();
-		CompraController compraController = new CompraController(telaDeCompras, produtoDAO, carrinhoDAO, navegador);
-		
-		TelaLogin telaLogin = new TelaLogin();
-		LoginController loginController = new LoginController(telaLogin, telaCadastroProduto, telaDeCompras, usuarioDAO, produtoDAO, navegador);
-		
-		TelaCupomFiscal telaCupomFiscal = new TelaCupomFiscal();
-		//CupomFiscalController cupomFiscalController = new CupomFiscalController(telaCupomFiscal, produtoDAO, navegador);
-		
 		TelaCarrinho telaCarrinho = new TelaCarrinho();
-		//CarrinhoController carrinhoController = new CarrinhoController(telaCarrinho, produtoDAO, navegador);
+		TelaDeCompras telaDeCompras = new TelaDeCompras();
+		TelaLogin telaLogin = new TelaLogin();
+		TelaCupomFiscal telaCupomFiscal = new TelaCupomFiscal();
+		
+		CadastroController cadastroController = new CadastroController(telaCadastro, usuarioDAO, navegador);
+		ProdutoController produtoController = new ProdutoController(telaCadastroProduto, produtoDAO, navegador);
+		CompraController compraController = new CompraController(telaDeCompras, telaCarrinho, telaCupomFiscal, produtoDAO, carrinhoDAO, navegador);
+		LoginController loginController = new LoginController(telaLogin, telaCadastroProduto, telaDeCompras, usuarioDAO, produtoDAO, navegador);
+		CarrinhoController carrinhoController = new CarrinhoController(telaCarrinho, telaDeCompras, telaCupomFiscal, loginController, carrinhoDAO, produtoDAO, navegador);
+		CupomFiscalController cupomFiscalController = new CupomFiscalController(telaCupomFiscal, carrinhoDAO, navegador);
+		
 		
 		navegador.addPainel("Login", telaLogin);
 		navegador.addPainel("Cadastro", telaCadastro);
